@@ -15,6 +15,7 @@
                 </div>
             @endif
           <h5 class="display-5"> Jesteś zalogowany </h5>
+          <a href="/choose" class="btn bg-white text-black"> Wybierz miasta </a>
         </div>
       </div>
     </div>

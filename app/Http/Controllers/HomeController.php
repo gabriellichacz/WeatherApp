@@ -56,4 +56,11 @@ class HomeController extends Controller
             'humidity' => $data_weather[1],
         ]);
     }
+
+    public function store(Request $request)
+    {
+        $selectValues = request()->CitySelector;
+
+        dd($selectValues);
+    }
 }

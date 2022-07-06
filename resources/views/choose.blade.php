@@ -13,7 +13,7 @@
     <div class="row py-5">
       <div class="col-lg-12 mx-auto">
         <div class="text-black p-3 shadow-sm rounded text-center text-white-50">
-          <h5 class="display-5"> Wybierz 10 miast </h5>
+          <h5 class="display-5"> Wybierz 3 miasta do obserowania </h5>
         </div>
       </div>
     </div>
@@ -21,9 +21,10 @@
 
     <!-- List -->
     <div class="row py-2">
-        <form>
+      <form action="/store" enctype="multipart/form-data" method="post">
+        @csrf
           <label> Miasta </label>
-          <select class="form-control selectpicker" multiple>
+          <select name="CitySelector" class="form-control selectpicker" multiple data-max-options="3">
             <option value="London"> London </option>
             <option value="Paris"> Paris </option>
             <option value="Berlin"> Berlin </option>

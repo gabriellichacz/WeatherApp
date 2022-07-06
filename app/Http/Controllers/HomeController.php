@@ -17,6 +17,11 @@ class HomeController extends Controller
         return view('home');
     }
 
+    public function choose()
+    {
+        return view('choose');
+    }
+
     public function APIcall()
     {
         // Data
@@ -35,11 +40,7 @@ class HomeController extends Controller
         // Extracting data - static
         $data_weather = [];
         $data_weather[0] = $data->main->temp;
-        $data_weather[1] = $data->main->feels_like;
-        $data_weather[2] = $data->main->temp_min;
-        $data_weather[3] = $data->main->temp_max;
-        $data_weather[4] = $data->main->pressure;
-        $data_weather[5] = $data->main->humidity;
+        $data_weather[1] = $data->main->humidity;
 
         // Extracting data - array
         /*$data_strings = ['temp','feels_like','temp_min','temp_max','pressure','humidity'];
@@ -52,11 +53,7 @@ class HomeController extends Controller
         //dd($data_weather); // dump data
         return ([
             'temp' => $data_weather[0],
-            'feels_like' => $data_weather[1],
-            'temp_min' => $data_weather[2],
-            'temp_max' => $data_weather[3],
-            'pressure' => $data_weather[4],
-            'humidity' => $data_weather[5],
+            'humidity' => $data_weather[1],
         ]);
     }
 }

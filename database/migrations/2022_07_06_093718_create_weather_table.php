@@ -16,12 +16,8 @@ return new class extends Migration
         Schema::create('weather', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->string("MainTemp");
-            $table->string("MainFeels_like");
-            $table->string("MainTemp_min");
-            $table->string("MainTemp_max");
-            $table->string("MainPressure");
-            $table->string("MainHumidity");
+            $table->string("Temp");
+            $table->string("Humidity");
         });
     }
 

@@ -5,7 +5,9 @@
 
 <div class="container-fluid text-white-50 bg-dark-custom">
     <div class="px-lg-3">
-        Strona powitalna
+        <div class="text-center">
+            Strona powitalna
+        </div>
     </div>
 </div>
 

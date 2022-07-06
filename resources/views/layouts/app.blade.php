@@ -31,7 +31,7 @@
 </head>
 
 <body>
-    <div id="app" class="bg-dark-custom text-white-50">
+    <div id="app" class="bg-dark-custom">
 
         <!-- navigation -->
         <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">

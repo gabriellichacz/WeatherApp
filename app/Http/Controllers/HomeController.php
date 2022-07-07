@@ -59,8 +59,15 @@ class HomeController extends Controller
 
     public function store(Request $request)
     {
-        $selectValues = request()->CitySelector;
+        // How many "followed" cities we want
+        $max_values_selected = 3;
 
+        // Putting values from CitySelector[] form to selectValues array
+        $selectValues = [];
+        for ($i = 0; $i <= $max_values_selected-1; $i++) {
+            $selectValues[$i] = request()->CitySelector[$i];
+        }
+    
         dd($selectValues);
     }
 }

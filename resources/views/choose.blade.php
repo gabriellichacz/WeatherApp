@@ -24,7 +24,7 @@
       <form action="/store" enctype="multipart/form-data" method="post">
         @csrf
           <label> Miasta </label>
-          <select name="CitySelector" class="form-control selectpicker" multiple data-max-options="3">
+          <select name="CitySelector[]" class="form-control selectpicker" multiple data-max-options="3">
             <option value="London"> London </option>
             <option value="Paris"> Paris </option>
             <option value="Berlin"> Berlin </option>

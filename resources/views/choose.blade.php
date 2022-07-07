@@ -25,12 +25,9 @@
         @csrf
           <label> Miasta </label>
           <select name="CitySelector[]" class="form-control selectpicker" multiple data-max-options="3">
-            <option value="London"> London </option>
-            <option value="Paris"> Paris </option>
-            <option value="Berlin"> Berlin </option>
-            <option value="Rome"> Rome </option>
-            <option value="Vienna"> Vienna </option>
-            <option value="Warsaw"> Warsaw </option>
+            @foreach ($Cities as $City) <!-- Data from DB -->
+            <option value="{{ $City }}"> {{ $City }} </option>
+            @endforeach
           </select>
           <button type="submit" class="btn btn-primary"> Submit </button>
         </form>

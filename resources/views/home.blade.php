@@ -24,51 +24,20 @@
     <!-- Cards -->
     <div class="row"> 
 
-      <!-- City card -->
-      <div class="col-xl-4 col-lg-3 col-md-6 mb-4">
-        <div class="p-2">
-          <div class="rounded shadow-sm">
-            <img src="#" class="img-fluid card-img-top" alt="City">
+        <!-- City card -->
+        <div class="col-xl-4 col-lg-3 col-md-6 mb-4">
+          <div class="p-2">
+            <!-- <div class="rounded shadow-sm">
+              <img src="#" class="img-fluid card-img-top" alt="City">
+            </div> -->
           </div>
-        </div>
-        <div class="p-3 text-white-50 text-center">
-          <h4 class="text-decoration-none"> Nazwa miasta </h4>
-          <p class="mb-0"> Temperatura: </p>
-          <p class="mb-0"> Wilgotność: </p>
-        </div>
-      </div>
-      <!-- End of City card -->
-
-      <!-- City card -->
-      <div class="col-xl-4 col-lg-3 col-md-6 mb-4">
-        <div class="p-2">
-          <div class="rounded shadow-sm">
-            <img src="#" class="img-fluid card-img-top" alt="City">
+          <div class="p-3 text-white-50 text-center">
+            <h4 class="text-decoration-none"> {{ $CityName }} </h4>
+            <p class="mb-0"> Temperatura: {{ $temp }} </p>
+            <p class="mb-0"> Wilgotność: {{ $humidity }} </p>
           </div>
-        </div>
-        <div class="p-3 text-white-50 text-center">
-          <h4 class="text-decoration-none"> Nazwa miasta </h4>
-          <p class="mb-0"> Temperatura: </p>
-          <p class="mb-0"> Wilgotność: </p>
-        </div>
-      </div>
-      <!-- End of City card -->
-
-      <!-- City card -->
-      <div class="col-xl-4 col-lg-3 col-md-6 mb-4">
-        <div class="p-2">
-          <div class="rounded shadow-sm">
-            <img src="#" class="img-fluid card-img-top" alt="City">
-          </div>
-        </div>
-        <div class="p-3 text-white-50 text-center">
-          <h4 class="text-decoration-none"> Nazwa miasta </h4>
-          <p class="mb-0"> Temperatura: </p>
-          <p class="mb-0"> Wilgotność: </p>
-        </div>
-      </div>
-      <!-- End of City card -->
-
+        </div>-
+        <!-- End of City card -->
 
     </div>
     <!-- end of Cards -->

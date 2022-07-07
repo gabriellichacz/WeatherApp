@@ -19,5 +19,5 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::get('/choose', [App\Http\Controllers\HomeController::class, 'choose']);
 
 //testing
-Route::get('/api', [App\Http\Controllers\HomeController::class, 'APIcall']);
+//Route::get('/api', [App\Http\Controllers\HomeController::class, 'APIcall']);
 Route::post('/store', [App\Http\Controllers\HomeController::class, 'store']);

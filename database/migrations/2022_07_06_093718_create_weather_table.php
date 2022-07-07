@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('weather', function (Blueprint $table) {
             $table->id();
+            $table->integer("CityID");
             $table->string("Temp");
             $table->string("Humidity");
             $table->timestamps();

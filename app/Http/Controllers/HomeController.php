@@ -48,18 +48,25 @@ class HomeController extends Controller
         $CitiesIDs = DB::table('cities') -> where('Chosen', '1') -> pluck('CityID'); // Getting chosen cities
         $CitiesNames = DB::table('cities') -> where('Chosen', '1') -> pluck('Name');
         $max_values_selected = 3;
-    
-        // Putting data from api call to array
-        $data_array = array();
-        for ($i = 0; $i <= $max_values_selected-1; $i++) {
-            $data_array[$i] = $this -> api($CitiesIDs, $CitiesNames, $i); // calling function 'api'
-        }
 
-        //dd($data_array);
-        return view('home', [
-            'data_array' => $data_array,
-            'max_values_selected' => $max_values_selected,
-        ]);
+        // Checking if table in database is empty
+        if($CitiesNames -> isEmpty()) {
+            return view('home', [
+                'data_array' => 0,
+                'max_values_selected' => 0,
+            ]);
+        } else {
+            // Putting data from api call to array
+            $data_array = array();
+            for ($i = 0; $i <= $max_values_selected-1; $i++) {
+                $data_array[$i] = $this -> api($CitiesIDs, $CitiesNames, $i); // calling function 'api'
+            }
+            
+            return view('home', [
+                'data_array' => $data_array,
+                'max_values_selected' => $max_values_selected,
+            ]);
+        }
     }
 
     // View with cities

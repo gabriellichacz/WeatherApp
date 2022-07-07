@@ -24,6 +24,7 @@
     <!-- Cards -->
     <div class="row"> 
 
+      @for ($i = 0; $i <= $max_values_selected-1; $i++)
         <!-- City card -->
         <div class="col-xl-4 col-lg-3 col-md-6 mb-4">
           <div class="p-2">
@@ -32,12 +33,13 @@
             </div> -->
           </div>
           <div class="p-3 text-white-50 text-center">
-            <h4 class="text-decoration-none"> {{ $CityName }} </h4>
-            <p class="mb-0"> Temperatura: {{ $temp }} </p>
-            <p class="mb-0"> Wilgotność: {{ $humidity }} </p>
+            <h4 class="text-decoration-none"> {{ $data_array[$i][0] }} </h4>
+            <p class="mb-0"> Temperatura: {{ $data_array[$i][1] }} </p>
+            <p class="mb-0"> Wilgotność: {{ $data_array[$i][2] }} </p>
           </div>
-        </div>-
+        </div>
         <!-- End of City card -->
+      @endfor
 
     </div>
     <!-- end of Cards -->

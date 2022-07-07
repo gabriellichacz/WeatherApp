@@ -13,11 +13,11 @@ class HomeController extends Controller
         $this->middleware('auth');
     }
 
-    public function api($CitiesIDs, $CitiesNames)
+    public function api($CitiesIDs, $CitiesNames, $j) // j - index for chosing city
     {
         $API_Key = 'f7df02ae6a92e103bdc3996cbf4099a5';
-        $city_id = $CitiesIDs[1]; // to be changed
-        $city_name = $CitiesNames[1]; // to be changed
+        $city_id = $CitiesIDs[$j]; // to be changed
+        $city_name = $CitiesNames[$j]; // to be changed
 
         // Calling API
         $apiData = @file_get_contents('https://api.openweathermap.org/data/2.5/weather?id='.$city_id.'&appid='.$API_Key.'');
@@ -42,14 +42,18 @@ class HomeController extends Controller
         // Data
         $CitiesIDs = DB::table('cities') -> where('Chosen', '1') -> pluck('CityID'); // Getting chosen cities
         $CitiesNames = DB::table('cities') -> where('Chosen', '1') -> pluck('Name');
-        
-        $data_f = $this -> api($CitiesIDs, $CitiesNames);
+        $max_values_selected = 3;
+    
+        // Putting data from api call to array
+        $data_array = array();
+        for ($i = 0; $i <= $max_values_selected-1; $i++) {
+            $data_array[$i] = $this -> api($CitiesIDs, $CitiesNames, $i);
+        }
 
-        //dd($CitiesNames);
+        //dd($data_array);
         return view('home', [
-            'CityName' => $data_f[0], // to be changed
-            'temp' => $data_f[1],
-            'humidity' => $data_f[2],
+            'data_array' => $data_array,
+            'max_values_selected' => $max_values_selected,
         ]);
     }
 

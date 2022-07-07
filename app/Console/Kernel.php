@@ -4,6 +4,13 @@ namespace App\Console;
 
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ApiController;
+
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\DB;
+use App\Models\City;
 
 class Kernel extends ConsoleKernel
 {
@@ -15,7 +22,9 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')->hourly();
+        // Calling HistoryAPI function every thirty minutes
+        //$schedule -> call('App\Http\Controllers\HomeController@HistoryAPI') -> everyMinute(); //everyThirtyMinutes();
+        $schedule ->call(new APIController)->everyMinute();
     }
 
     /**

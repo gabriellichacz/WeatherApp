@@ -86,7 +86,7 @@ class HomeController extends Controller
                 $data_array[$i] = $this -> api($CitiesIDs, $CitiesNames, $i); // calling function 'api'
             }
 
-            $this -> HistoryAPI(); // calling function 'HistoryAPI'
+            //$this -> HistoryAPI(); // calling function 'HistoryAPI'
 
             return view('home', [
                 'data_array' => $data_array,

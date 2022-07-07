@@ -9,11 +9,11 @@
     <div class="row py-5">
       <div class="col-lg-12 mx-auto">
         <div class="text-black p-3 shadow-sm rounded text-center text-white-50">
-            @if (session('status'))
-                <div class="alert alert-success" role="alert">
-                    {{ session('status') }}
-                </div>
-            @endif
+          @if (session('status'))
+            <div class="alert alert-success" role="alert">
+              {{ session('status') }}
+            </div>
+          @endif
           <h5 class="display-5"> Jesteś zalogowany </h5>
           <a href="/choose" class="btn bg-white text-black"> Wybierz miasta </a>
         </div>

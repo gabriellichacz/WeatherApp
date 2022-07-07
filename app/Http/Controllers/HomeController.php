@@ -13,13 +13,11 @@ class HomeController extends Controller
         $this->middleware('auth');
     }
 
-    public function index()
+    public function api($CitiesIDs, $CitiesNames)
     {
-        // Data
-        $CitiesIDs = DB::table('cities') -> where('Chosen', '1') -> pluck('CityID'); // Getting chosen cities
-        $CitiesNames = DB::table('cities') -> where('Chosen', '1') -> pluck('Name');
-        $city_id = $CitiesIDs[1]; // to be changed
         $API_Key = 'f7df02ae6a92e103bdc3996cbf4099a5';
+        $city_id = $CitiesIDs[1]; // to be changed
+        $city_name = $CitiesNames[1]; // to be changed
 
         // Calling API
         $apiData = @file_get_contents('https://api.openweathermap.org/data/2.5/weather?id='.$city_id.'&appid='.$API_Key.'');
@@ -29,17 +27,29 @@ class HomeController extends Controller
         else { // if data is not found
             echo 'Invalid API key or invalid city ID.'; 
         }
-
+    
         // Extracting data - static
         $data_weather = [];
-        $data_weather[0] = $data->main->temp;
-        $data_weather[1] = $data->main->humidity;
+        $data_weather[0] = $city_name;
+        $data_weather[1] = $data->main->temp;
+        $data_weather[2] = $data->main->humidity;
+
+        return($data_weather);
+    }
+
+    public function index()
+    {
+        // Data
+        $CitiesIDs = DB::table('cities') -> where('Chosen', '1') -> pluck('CityID'); // Getting chosen cities
+        $CitiesNames = DB::table('cities') -> where('Chosen', '1') -> pluck('Name');
+        
+        $data_f = $this -> api($CitiesIDs, $CitiesNames);
 
         //dd($CitiesNames);
         return view('home', [
-            'CityName' => $CitiesNames[1], // to be changed
-            'temp' => $data_weather[0],
-            'humidity' => $data_weather[1],
+            'CityName' => $data_f[0], // to be changed
+            'temp' => $data_f[1],
+            'humidity' => $data_f[2],
         ]);
     }
 

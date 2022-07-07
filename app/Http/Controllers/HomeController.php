@@ -42,29 +42,6 @@ class HomeController extends Controller
         return($data_weather);
     }
 
-    public function HistoryAPI()
-    {
-        $CitiesIDsALL = DB::table('cities') -> pluck('CityID'); // Getting all cities' IDs
-        $CitiesNamesALL = DB::table('cities') -> pluck('CityID'); // Getting all cities' IDs
-        date_default_timezone_set('Europe/Warsaw'); // timezone for saving created_at
-
-        // Checking if table in database is empty
-        if($CitiesIDsALL -> isEmpty()) {
-            return 0;
-        } else {
-            // Inserting current data to database for all cities
-            for ($LoopCityIndex = 0; $LoopCityIndex <= count($CitiesIDsALL)-1; $LoopCityIndex++) {
-                $data = $this -> api($CitiesIDsALL, $CitiesNamesALL, $LoopCityIndex); // Calling function 'api'
-                DB::table('weather') -> insert([ // Inserting
-                    'CityID' => $data[3],
-                    'Temp' => $data[1],
-                    'Humidity' => $data[2],
-                    'created_at' => date('Y/m/d H:i:s'),
-                ]);
-            }
-        }
-    }
-
     // Home view with weather dashboard
     public function index()
     {
@@ -85,8 +62,6 @@ class HomeController extends Controller
             for ($i = 0; $i <= $max_values_selected-1; $i++) {
                 $data_array[$i] = $this -> api($CitiesIDs, $CitiesNames, $i); // calling function 'api'
             }
-
-            //$this -> HistoryAPI(); // calling function 'HistoryAPI'
 
             return view('home', [
                 'data_array' => $data_array,

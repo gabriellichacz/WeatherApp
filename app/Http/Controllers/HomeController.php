@@ -5,14 +5,17 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\DB;
+use App\Models\City;
 
 class HomeController extends Controller
 {
+    // Authentication required
     public function __construct()
     {
         $this->middleware('auth');
     }
 
+    // Calling OpenWeather API
     public function api($CitiesIDs, $CitiesNames, $j) // j - index for chosing city
     {
         $API_Key = 'f7df02ae6a92e103bdc3996cbf4099a5';
@@ -23,8 +26,7 @@ class HomeController extends Controller
         $apiData = @file_get_contents('https://api.openweathermap.org/data/2.5/weather?id='.$city_id.'&appid='.$API_Key.'');
         if($apiData) {
             $data = json_decode($apiData); 
-        }
-        else { // if data is not found
+        } else { // if data is not found
             echo 'Invalid API key or invalid city ID.'; 
         }
     
@@ -37,6 +39,7 @@ class HomeController extends Controller
         return($data_weather);
     }
 
+    // Home view with weather dashboard
     public function index()
     {
         // Data
@@ -47,7 +50,7 @@ class HomeController extends Controller
         // Putting data from api call to array
         $data_array = array();
         for ($i = 0; $i <= $max_values_selected-1; $i++) {
-            $data_array[$i] = $this -> api($CitiesIDs, $CitiesNames, $i);
+            $data_array[$i] = $this -> api($CitiesIDs, $CitiesNames, $i); // calling function 'api'
         }
 
         //dd($data_array);
@@ -57,51 +60,17 @@ class HomeController extends Controller
         ]);
     }
 
+    // View with cities
     public function choose()
     {
-        $CitiesNames = DB::table('cities') -> pluck('Name'); // select statement
+        $CitiesNames = DB::table('cities') -> pluck('Name'); // selecting column with cities names
 
         return view('choose', [
             'Cities' => $CitiesNames
         ]);
     }
 
-    /*public function APIcall()
-    {
-        // Data
-        $CitiesNames = DB::table('cities') -> where('Chosen', '1') -> pluck('CityID'); // Getting chosen cities
-
-        $city_id = "3247463"; // will be dynamic
-        $API_Key = 'f7df02ae6a92e103bdc3996cbf4099a5';
-
-        // Calling API
-        $apiData = @file_get_contents('https://api.openweathermap.org/data/2.5/weather?id='.$city_id.'&appid='.$API_Key.'');
-        if($apiData) {
-            $data = json_decode($apiData); 
-        }
-        else { // if data is not found
-            echo 'Invalid API key or invalid city ID.'; 
-        }
-
-        // Extracting data - static
-        $data_weather = [];
-        $data_weather[0] = $data->main->temp;
-        $data_weather[1] = $data->main->humidity;
-
-        // Extracting data - array
-        //$data_strings = ['temp', 'humidity'];
-        //for ($i = 0; $i <= count($data_strings)-1; $i++) {
-        //    $data_weather[$i] = $data-> main -> $data_strings[$i]; // Array to string conversion --ERROR--
-        //}
-        
-
-        //dd($CitiesNames);
-        return ([
-            'temp' => $data_weather[0],
-            'humidity' => $data_weather[1],
-        ]);
-    }*/
-
+    // Storing "followed" cities in database (data from form CitySelector)
     public function store(Request $request)
     {
         // How many "followed" cities we want
@@ -113,12 +82,13 @@ class HomeController extends Controller
             $selectValues[$i] = request()-> CitySelector[$i];
         }
 
-        // Updating database Chosen column
-        for ($i = 0; $i <= $max_values_selected-1; $i++) {
-            DB::table('cities') -> where('Name', $selectValues[$i]) -> limit(1) -> update(array('Chosen' => 1));
+        // Updating database 'Chosen' column
+        DB::table('cities') -> update(array('Chosen' => 0)); // Empty column
+        for ($k = 0; $k <= count($selectValues)-1; $k++) {
+            DB::table('cities') -> where('Name', $selectValues[$k]) -> limit(1) -> update(array('Chosen' => 1)); // Write indexes for chosen cities
         }
         
-        //dd($selectValues);
+        //dd($cities);
         return redirect('home');
     }
 }

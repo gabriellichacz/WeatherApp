@@ -19,11 +19,12 @@ class HomeController extends Controller
     public function api($CitiesIDs, $CitiesNames, $j) // j - index for chosing city
     {
         $API_Key = 'f7df02ae6a92e103bdc3996cbf4099a5';
-        $city_id = $CitiesIDs[$j]; // to be changed
-        $city_name = $CitiesNames[$j]; // to be changed
+        $city_id = $CitiesIDs[$j];
+        $city_name = $CitiesNames[$j];
+        $units = 'metric';
 
         // Calling API
-        $apiData = @file_get_contents('https://api.openweathermap.org/data/2.5/weather?id='.$city_id.'&appid='.$API_Key.'');
+        $apiData = @file_get_contents('https://api.openweathermap.org/data/2.5/weather?id='.$city_id.'&appid='.$API_Key.'&units='.$units.'');
         if($apiData) {
             $data = json_decode($apiData); 
         } else { // if data is not found
@@ -34,6 +35,7 @@ class HomeController extends Controller
         $data_weather = [];
         $data_weather[0] = $city_name;
         $data_weather[1] = $data->main->temp;
+        $data_weather[1] = round($data_weather[1], 0, PHP_ROUND_HALF_UP); // Rounding temperature
         $data_weather[2] = $data->main->humidity;
 
         return($data_weather);

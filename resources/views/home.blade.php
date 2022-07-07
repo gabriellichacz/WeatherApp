@@ -15,7 +15,7 @@
             </div>
           @endif
           <h5 class="display-5"> Jesteś zalogowany </h5>
-          <a href="/choose" class="btn bg-white text-black"> Wybierz miasta </a>
+          <a href="/choose" class="btn bg-white text-black m-2"> Wybierz miasta </a>
         </div>
       </div>
     </div>
@@ -34,8 +34,8 @@
           </div>
           <div class="p-3 text-white-50 text-center">
             <h4 class="text-decoration-none"> {{ $data_array[$i][0] }} </h4>
-            <p class="mb-0"> Temperatura: {{ $data_array[$i][1] }} </p>
-            <p class="mb-0"> Wilgotność: {{ $data_array[$i][2] }} </p>
+            <p class="mb-0"> Temperatura: {{ $data_array[$i][1] }}°C </p>
+            <p class="mb-0"> Wilgotność: {{ $data_array[$i][2] }}% </p>
           </div>
         </div>
         <!-- End of City card -->

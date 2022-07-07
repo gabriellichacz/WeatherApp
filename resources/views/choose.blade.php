@@ -13,23 +13,22 @@
     <div class="row py-5">
       <div class="col-lg-12 mx-auto">
         <div class="text-black p-3 shadow-sm rounded text-center text-white-50">
-          <h5 class="display-5"> Wybierz 3 miasta do obserowania </h5>
+          <h3> Wybierz 3 miasta do obserowania </h3>
         </div>
       </div>
     </div>
     <!-- End of header -->
 
     <!-- List -->
-    <div class="row py-2">
+    <div class="row py-2 text-center">
       <form action="/store" enctype="multipart/form-data" method="post">
         @csrf
-          <label> Miasta </label>
           <select name="CitySelector[]" class="form-control selectpicker" multiple data-max-options="3">
             @foreach ($Cities as $City) <!-- Data from DB -->
             <option value="{{ $City }}"> {{ $City }} </option>
             @endforeach
           </select>
-          <button type="submit" class="btn btn-primary"> Submit </button>
+          <button type="submit" class="btn bg-white text-black m-2"> Zapisz </button>
         </form>
     </div>
     <!-- List -->

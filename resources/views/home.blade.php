@@ -59,7 +59,8 @@
     el: '#HistoryChartContainer',
     url: "@chart('history_chart')",
     hooks: new ChartisanHooks()
-    .datasets([{ type: 'line', fill: false }]),
+    .colors()
+    .datasets('scatter'),
 })
 </script>
 <!-- end of Scripts for charts -->

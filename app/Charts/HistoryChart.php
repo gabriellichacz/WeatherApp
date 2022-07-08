@@ -37,11 +37,9 @@ class HistoryChart extends BaseChart
     public function handler(Request $request): Chartisan
     {
         $data_all = $this -> data_for_chart();
-
-       // dd($data_all);
-
+        
         return Chartisan::build()
-            ->dataset('Sample', $data_all);
+            ->dataset('Temperatura', $data_all);
     }
 }
 //$data[0][1], $data[0][2]

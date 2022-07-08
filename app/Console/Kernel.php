@@ -23,8 +23,7 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         // Calling HistoryAPI function every thirty minutes
-        //$schedule -> call('App\Http\Controllers\HomeController@HistoryAPI') -> everyMinute(); //everyThirtyMinutes();
-        $schedule ->call(new APIController)->everyMinute();
+        $schedule ->call(new APIController)->everyThirtyMinutes();
     }
 
     /**

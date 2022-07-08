@@ -63,21 +63,15 @@ class HomeController extends Controller
                 $data_array[$i] = $this -> api($CitiesIDs, $CitiesNames, $i); // calling function 'api'
             }
 
+            // CitiesNames for list
+            $CitiesNames = DB::table('cities') -> pluck('Name'); // selecting column with cities names
+
             return view('home', [
                 'data_array' => $data_array,
                 'max_values_selected' => $max_values_selected,
+                'Cities' => $CitiesNames
             ]);
         }
-    }
-
-    // View with cities
-    public function choose()
-    {
-        $CitiesNames = DB::table('cities') -> pluck('Name'); // selecting column with cities names
-
-        return view('choose', [
-            'Cities' => $CitiesNames
-        ]);
     }
 
     // Storing "followed" cities in database (data from form CitySelector)

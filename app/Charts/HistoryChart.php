@@ -8,6 +8,7 @@ use Chartisan\PHP\Chartisan;
 use ConsoleTVs\Charts\BaseChart;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Models\Weather;
 
 class HistoryChart extends BaseChart
 {
@@ -22,26 +23,25 @@ class HistoryChart extends BaseChart
         // All needed cities's IDs
         $cities = DB::table('cities') -> where('Chosen', 1) -> pluck('CityID');
 
-        // Data
-        $data_big = array();
-        for($n = 0; $n <= count($cities)-1; $n++){
-            $data_big[$n][0] = DB::table('weather') -> where('CityID', $cities[$n]) -> pluck('CityID');
-            $data_big[$n][1] = DB::table('weather') -> where('CityID', $cities[$n]) -> pluck('created_at');
-            $data_big[$n][2] = DB::table('weather') -> where('CityID', $cities[$n]) -> pluck('Temp');
-            $data_big[$n][3] = DB::table('weather') -> where('CityID', $cities[$n]) -> pluck('Humidity');
-        }
+        // All data
+        $dataa = Weather::select('id', 'Temp') -> where('CityID', $cities[0]) -> get() -> toArray();
 
-        return($data_big);
+        // Structuring data set
+        $structuredData = array_map(function($item){
+            return ['x' => $item['id'], 'y' => $item['Temp']];
+        }, $dataa);
+
+        return($structuredData);
     }
 
     public function handler(Request $request): Chartisan
     {
-        $data = $this -> data_for_chart(); // calling function 'data_for_chart'
-        $labels1 = $data[0][1];
+        $data_all = $this -> data_for_chart();
+
+       // dd($data_all);
 
         return Chartisan::build()
-            ->labels([$labels1
-            ])
-            ->dataset('Sample', [$data[0][1], $data[0][2]]);
+            ->dataset('Sample', $data_all);
     }
 }
+//$data[0][1], $data[0][2]

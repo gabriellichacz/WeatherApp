@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\DB;
-use App\Models\City;
+use App\Models\Weather;
 
 class HomeController extends Controller
 {
@@ -107,15 +107,23 @@ class HomeController extends Controller
         // All needed cities's IDs
         $cities = DB::table('cities') -> where('Chosen', 1) -> pluck('CityID');
 
+        // All data
+        $dataa = Weather::select('created_at', 'Temp') -> where('CityID', $cities[0]) -> get() -> toArray();
+
+        // Structuring data set
+        $structuredData = array_map(function($item){
+            return ['x' => $item['created_at'], 'y' => $item['Temp']];
+        }, $dataa);
+        
         // Data
-        $data_big = array();
+        /*$data_big = array();
         for($n = 0; $n <= count($cities)-1; $n++){
             $data_big[$n][0] = DB::table('weather') -> where('CityID', $cities[$n]) -> pluck('CityID');
             $data_big[$n][1] = DB::table('weather') -> where('CityID', $cities[$n]) -> pluck('created_at');
             $data_big[$n][2] = DB::table('weather') -> where('CityID', $cities[$n]) -> pluck('Temp');
             $data_big[$n][3] = DB::table('weather') -> where('CityID', $cities[$n]) -> pluck('Humidity');
-        }
-        
-        dd($data_big);
+        }*/
+
+        dd($structuredData);
     }
 }

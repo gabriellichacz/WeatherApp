@@ -101,16 +101,21 @@ class HomeController extends Controller
         return redirect('home');
     }
 
+    // Charts test
     public function test()
     {
         // All needed cities's IDs
         $cities = DB::table('cities') -> where('Chosen', 1) -> pluck('CityID');
 
         // Data
-        $Temp = DB::table('weather') -> where('CityID', $cities[1]) -> pluck('Temp');
-        $Hum = DB::table('weather') -> where('CityID', $cities[1]) -> pluck('Humidity');
-
-
-        dd($Hum);
+        $data_big = array();
+        for($n = 0; $n <= count($cities)-1; $n++){
+            $data_big[$n][0] = DB::table('weather') -> where('CityID', $cities[$n]) -> pluck('CityID');
+            $data_big[$n][1] = DB::table('weather') -> where('CityID', $cities[$n]) -> pluck('created_at');
+            $data_big[$n][2] = DB::table('weather') -> where('CityID', $cities[$n]) -> pluck('Temp');
+            $data_big[$n][3] = DB::table('weather') -> where('CityID', $cities[$n]) -> pluck('Humidity');
+        }
+        
+        dd($data_big);
     }
 }

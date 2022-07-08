@@ -58,7 +58,9 @@
   const chart = new Chartisan({
     el: '#HistoryChartContainer',
     url: "@chart('history_chart')",
-    });
+    hooks: new ChartisanHooks()
+    .datasets([{ type: 'line', fill: false }]),
+})
 </script>
 <!-- end of Scripts for charts -->
 

@@ -100,4 +100,17 @@ class HomeController extends Controller
         
         return redirect('home');
     }
+
+    public function test()
+    {
+        // All needed cities's IDs
+        $cities = DB::table('cities') -> where('Chosen', 1) -> pluck('CityID');
+
+        // Data
+        $Temp = DB::table('weather') -> where('CityID', $cities[1]) -> pluck('Temp');
+        $Hum = DB::table('weather') -> where('CityID', $cities[1]) -> pluck('Humidity');
+
+
+        dd($Hum);
+    }
 }

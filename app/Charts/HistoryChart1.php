@@ -38,11 +38,12 @@ class HistoryChart1 extends BaseChart
 
     public function handler(Request $request): Chartisan
     {
+        $citiesNames = DB::table('cities') -> where('Chosen', 1) -> pluck('Name');
         $data_hum = $this -> data_for_chart_hum();
         
         return Chartisan::build()
-            ->dataset('Wilgotność1', $data_hum[0])
-            ->dataset('Wilgotność2', $data_hum[1])
-            ->dataset('Wilgotność3', $data_hum[2]);
+            ->dataset($citiesNames[0], $data_hum[0])
+            ->dataset($citiesNames[1], $data_hum[1])
+            ->dataset($citiesNames[2], $data_hum[2]);
     }
 }

@@ -43,11 +43,11 @@
     <!-- end of Cards -->
 
     <!-- Chart's container -->
-    <div id="HistoryChartContainer"></div>
+    <div id="HistoryChartContainer" class="m-4"></div>
     <!-- end of Chart's container -->
 
     <!-- Chart's container -->
-    <div id="HistoryChartContainer1"></div>
+    <div id="HistoryChartContainer1" class="m-4"></div>
     <!-- end of Chart's container -->
 
   </div>
@@ -65,15 +65,15 @@
     hooks: new ChartisanHooks()
     .colors()
     .datasets('scatter'),
-})
+  })
 
-const chart1 = new Chartisan({
+  const chart1 = new Chartisan({
     el: '#HistoryChartContainer1',
     url: "@chart('history_chart1')",
     hooks: new ChartisanHooks()
     .colors()
     .datasets('scatter'),
-})
+    })
 </script>
 <!-- end of Scripts for charts -->
 

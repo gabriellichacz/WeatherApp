@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\Weather;
 
-class HistoryChart extends BaseChart
+class HistoryChart1 extends BaseChart
 {
     /**
      * Handles the HTTP request for the given chart.
@@ -18,18 +18,18 @@ class HistoryChart extends BaseChart
      * and never a string or an array.
      */
     
-    public function data_for_chart_temp()
+    public function data_for_chart_hum()
     {
         // All needed cities's IDs
         $cities = DB::table('cities') -> where('Chosen', 1) -> pluck('CityID');
 
         for($n = 0; $n <= count($cities)-1; $n++){
             // All data
-            $dataa = Weather::select('id', 'Temp') -> where('CityID', $cities[$n]) -> get() -> toArray();
+            $dataa = Weather::select('id', 'Humidity') -> where('CityID', $cities[$n]) -> get() -> toArray();
 
             // Structuring data set for chartJS
             $structuredData[$n] = array_map(function($item){
-                return ['x' => $item['id'], 'y' => $item['Temp']];
+                return ['x' => $item['id'], 'y' => $item['Humidity']];
             }, $dataa);
         }
 
@@ -38,11 +38,11 @@ class HistoryChart extends BaseChart
 
     public function handler(Request $request): Chartisan
     {
-        $data_temp = $this -> data_for_chart_temp();
+        $data_hum = $this -> data_for_chart_hum();
         
         return Chartisan::build()
-            ->dataset('Temperatura1', $data_temp[0])
-            ->dataset('Temperatura2', $data_temp[1])
-            ->dataset('Temperatura3', $data_temp[2]);
+            ->dataset('Wilgotność1', $data_hum[0])
+            ->dataset('Wilgotność2', $data_hum[1])
+            ->dataset('Wilgotność3', $data_hum[2]);
     }
 }

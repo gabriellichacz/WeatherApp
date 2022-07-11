@@ -21,7 +21,7 @@ class HistoryChart extends BaseChart
     public function data_for_chart_temp()
     {
         // All needed cities's IDs
-        $cities = DB::table('cities') -> where('Chosen', 1) -> pluck('CityID');
+        $cities = DB::table('cities') -> pluck('CityID');
 
         for($n = 0; $n <= count($cities)-1; $n++){
             // All data
@@ -38,7 +38,7 @@ class HistoryChart extends BaseChart
 
     public function handler(Request $request): Chartisan
     {
-        $citiesNames = DB::table('cities') -> where('Chosen', 1) -> pluck('Name');
+        $citiesNames = DB::table('cities') -> pluck('name');
         $data_temp = $this -> data_for_chart_temp();
         
         return Chartisan::build()

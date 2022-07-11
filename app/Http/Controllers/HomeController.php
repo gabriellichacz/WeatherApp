@@ -56,7 +56,8 @@ class HomeController extends Controller
         $filtered_data = [];
         for($i = 0; $i < count($data_json); $i++){
             $item = $data_json[$i];
-            if($item["country"] == 'PL') {
+            if($item["country"] == 'PL') 
+            {
                 $filtered_data[$i] = array(
                     "id" => $item["id"],
                     "name" => $item["name"]
@@ -88,9 +89,9 @@ class HomeController extends Controller
         else 
         {
             // 'Followed' cities
-            $chosenCitiesNames = DB::table('cities') -> pluck('name');
             $chosenCitiesIDs = DB::table('cities') -> pluck('CityID');
-
+            $chosenCitiesNames = DB::table('cities') -> pluck('name');
+            
             // Putting data from api call to array
             $data_array = array();
             for ($i = 0; $i <= $max_values_selected-1; $i++) {

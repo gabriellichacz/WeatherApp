@@ -11,14 +11,17 @@ class APIController extends HomeController
 {
     public function __invoke()
     {
-        $CitiesIDsALL = DB::table('cities') -> pluck('CityID'); // Getting all cities' IDs
-        $CitiesNamesALL = DB::table('cities') -> pluck('CityID'); // Getting all cities' IDs
+        $CitiesIDsALL = DB::table('cities') -> pluck('CityID');
+        $CitiesNamesALL = DB::table('cities') -> pluck('name');
         date_default_timezone_set('Europe/Warsaw'); // timezone for saving created_at
 
         // Checking if table in database is empty
-        if($CitiesIDsALL -> isEmpty()) {
+        if($CitiesIDsALL -> isEmpty()) 
+        {
             return 0;
-        } else {
+        } 
+        else 
+        {
             // Inserting current data to database for all cities
             for ($LoopCityIndex = 0; $LoopCityIndex <= count($CitiesIDsALL)-1; $LoopCityIndex++) {
                 

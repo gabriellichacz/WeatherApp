@@ -53,12 +53,14 @@
             </div> -->
           </div>
           <div class="p-3 text-white-50 text-center">
-            <p class="text-decoration-none display-6"> 
-              <a class="text-white-50" href="/details/{{ $data_array[$i][3] }}">
-                {{ $data_array[$i][0] }} </p>
-              </a>
+            <p class="text-decoration-none display-6"> {{ $data_array[$i][0] }} </p>
             <p class="mb-0"> Temperatura: {{ $data_array[$i][1] }}°C </p>
             <p class="mb-0"> Wilgotność: {{ $data_array[$i][2] }}% </p>
+            <p class="m-2">
+              <a href="/details/{{ $data_array[$i][3] }}" class="btn bg-white text-black" type="button">
+                Wyświetl historię
+              </a>
+            </p>
           </div>
         </div>
         <!-- End of City card -->
@@ -66,58 +68,10 @@
     </div>
     <!-- end of Cards -->
 
-    <!-- Collapsible charts' section -->
-    <div class="row py-2 text-center">
-      <p class="text-center">
-        <button class="btn bg-white text-black" type="button" data-bs-toggle="collapse" data-bs-target="#collapseCharts" aria-expanded="false" aria-controls="collapseCharts">
-          Wyświetl historię
-        </button>
-      </p>
-      <div class="collapse" id="collapseCharts">
-        <div class="card card-body text-white-50 bg-dark-custom">
-          <!-- Charts -->
-          <div class="row py-2 text-center">
-            <div class="col m-4">
-              <p class="display-6"> Wykres temperatur </p>
-              <p id="HistoryChartContainer"></p>
-            </div>
-            <div class="col m-4">
-              <p class="display-6"> Wykres wilgotności </p>
-              <p id="HistoryChartContainer1"></p>
-            </div>
-          </div>
-          <!-- end of Charts -->
-        </div>
-      </div>
-    </div>
-    <!-- end of Collapsible charts' section -->
 
   </div>
 </div>
 
-
-
-<!-- Scripts for charts -->
-<script src="https://unpkg.com/chart.js@^2.9.3/dist/Chart.min.js"></script>
-<script src="https://unpkg.com/@chartisan/chartjs@^2.1.0/dist/chartisan_chartjs.umd.js"></script>
-<script>
-  const chart = new Chartisan({
-    el: '#HistoryChartContainer',
-    url: "@chart('history_chart')",
-    hooks: new ChartisanHooks()
-    .colors()
-    .datasets('scatter'),
-});
-
-const chart1 = new Chartisan({
-    el: '#HistoryChartContainer1',
-    url: "@chart('history_chart1')",
-    hooks: new ChartisanHooks()
-    .colors()
-    .datasets('scatter'),
-})
-</script>
-<!-- end of Scripts for charts -->
 
 <!-- Links for multiselect list -->
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js"> </script>

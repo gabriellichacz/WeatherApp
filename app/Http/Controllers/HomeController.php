@@ -52,8 +52,19 @@ class HomeController extends Controller
 
         // Reading from json
         $datafile_json = file_get_contents("json_data/city.list.json");
-        $data_json = json_decode($datafile_json);
-        //dd($data_json[1]);
+        $data_json = json_decode($datafile_json, true);
+        // Filtering json (we want only ["country"] == 'PL')
+        $filtered_data = [];
+        for($i = 0; $i < count($data_json); $i++){
+            $item = $data_json[$i];
+            if($item["country"] == 'PL') {
+                $filtered_data[$i] = array(
+                    "id" => $item["id"],
+                    "name" => $item["name"]
+                );
+            }
+        }
+        //dd($filtered_data);
 
         // Checking if table in database is empty
         if($CitiesNames -> isEmpty()) {

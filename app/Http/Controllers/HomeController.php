@@ -26,7 +26,7 @@ class HomeController extends Controller
         // Calling API
         $apiData = @file_get_contents('https://api.openweathermap.org/data/2.5/weather?id='.$city_id.'&appid='.$API_Key.'&units='.$units.'');
         if($apiData) {
-            $data = json_decode($apiData); 
+            $data = json_decode($apiData);
         } else { // if data is not found
             echo 'Invalid API key or invalid city ID.'; 
         }
@@ -49,6 +49,11 @@ class HomeController extends Controller
         $CitiesIDs = DB::table('cities') -> where('Chosen', '1') -> pluck('CityID'); // Getting chosen cities
         $CitiesNames = DB::table('cities') -> where('Chosen', '1') -> pluck('Name');
         $max_values_selected = 3;
+
+        // Reading from json
+        $datafile_json = file_get_contents("json_data/city.list.json");
+        $data_json = json_decode($datafile_json);
+        //dd($data_json[1]);
 
         // Checking if table in database is empty
         if($CitiesNames -> isEmpty()) {

@@ -97,10 +97,6 @@
 <!-- Scripts for charts -->
 <script src="https://unpkg.com/chart.js@^2.9.3/dist/Chart.min.js"></script>
 <script src="https://unpkg.com/@chartisan/chartjs@^2.1.0/dist/chartisan_chartjs.umd.js"></script>
-<!-- Links for multiselect list -->
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js"> </script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"> </script>
-
 <script>
   const chart = new Chartisan({
     el: '#HistoryChartContainer',
@@ -108,16 +104,20 @@
     hooks: new ChartisanHooks()
     .colors()
     .datasets('scatter'),
-  })
+});
 
-  const chart1 = new Chartisan({
+const chart1 = new Chartisan({
     el: '#HistoryChartContainer1',
     url: "@chart('history_chart1')",
     hooks: new ChartisanHooks()
     .colors()
     .datasets('scatter'),
-    })
+})
 </script>
 <!-- end of Scripts for charts -->
+
+<!-- Links for multiselect list -->
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js"> </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"> </script>
 
 @endsection

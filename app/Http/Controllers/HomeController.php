@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\DB;
 use App\Models\Weather;
+use App\Models\City;
 
 class HomeController extends Controller
 {
@@ -45,14 +46,12 @@ class HomeController extends Controller
     // Home view with weather dashboard
     public function index()
     {
-        // Data
-        $CitiesIDs = DB::table('cities') -> where('Chosen', '1') -> pluck('CityID'); // Getting chosen cities
-        $CitiesNames = DB::table('cities') -> where('Chosen', '1') -> pluck('Name');
         $max_values_selected = 3;
 
         // Reading from json
         $datafile_json = file_get_contents("json_data/city.list.json");
         $data_json = json_decode($datafile_json, true);
+
         // Filtering json (we want only ["country"] == 'PL')
         $filtered_data = [];
         for($i = 0; $i < count($data_json); $i++){
@@ -64,28 +63,45 @@ class HomeController extends Controller
                 );
             }
         }
-        //dd($filtered_data);
+
+        // Reindexing
+        $MainDataArrayCities = array_combine(
+            range(0, count($filtered_data) + (0-1)), array_values($filtered_data)
+        );
+
+        // Splitting data (IDs and CitiesNames)
+        $CitiesIDs = [];
+        $CitiesNames = [];
+        for($i = 0; $i < count($MainDataArrayCities); $i++){
+            $CitiesIDs[$i] = $MainDataArrayCities[$i]['id'];
+            $CitiesNames[$i] = $MainDataArrayCities[$i]['name'];
+        }
 
         // Checking if table in database is empty
-        if($CitiesNames -> isEmpty()) {
+        if(empty($CitiesNames)) 
+        {
             return view('home', [
                 'data_array' => 0,
                 'max_values_selected' => 0,
             ]);
-        } else {
+        } 
+        else 
+        {
+            // 'Followed' cities
+            $chosenCitiesNames = DB::table('cities') -> pluck('name');
+            $chosenCitiesIDs = DB::table('cities') -> pluck('CityID');
+
             // Putting data from api call to array
             $data_array = array();
             for ($i = 0; $i <= $max_values_selected-1; $i++) {
-                $data_array[$i] = $this -> api($CitiesIDs, $CitiesNames, $i); // calling function 'api'
+                $data_array[$i] = $this -> api($chosenCitiesIDs, $chosenCitiesNames, $i); // calling function 'api'
             }
-
-            // CitiesNames for list
-            $CitiesNames = DB::table('cities') -> pluck('Name'); // selecting column with cities names
 
             return view('home', [
                 'data_array' => $data_array,
                 'max_values_selected' => $max_values_selected,
-                'Cities' => $CitiesNames
+                'Cities' => $CitiesNames,
+                'CitiesIDs' => $CitiesIDs
             ]);
         }
     }
@@ -96,18 +112,27 @@ class HomeController extends Controller
         // How many "followed" cities we want
         $max_values_selected = 3;
 
-        // Putting values from CitySelector[] form to selectValues array
+        // Putting values from CitySelector[] form to selectValues array and separating IDs and Names
         $selectValues = [];
+        $result_array = [];
         for ($i = 0; $i <= $max_values_selected-1; $i++) {
-            $selectValues[$i] = request()-> CitySelector[$i];
+            $selectValues[$i] = request() -> CitySelector[$i];
+            $result_array[$i] = explode('|', $selectValues[$i]);
         }
 
-        // Updating database 'Chosen' column
-        DB::table('cities') -> update(array('Chosen' => 0)); // Empty column
-        for ($k = 0; $k <= count($selectValues)-1; $k++) {
-            DB::table('cities') -> where('Name', $selectValues[$k]) -> limit(1) -> update(array('Chosen' => 1)); // Write indexes for chosen cities
+        // Truncating table
+        City::truncate();
+
+        // Inserting new chosen cities
+        for ($i = 0; $i <= $max_values_selected-1; $i++) {
+            $city = City::create([
+                'CityID' => $result_array[$i][0],
+                'Name' => $result_array[$i][1],
+                'Chosen' => '0',
+            ]);
+            $city -> save();
         }
-        
+
         return redirect('home');
     }
 }

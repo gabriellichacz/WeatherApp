@@ -7,8 +7,10 @@ use App\Models\City;
 
 class DetailsController extends Controller
 {
-    public function details(City $city)
+    public function details($cityID)
     {
-        return view('details', compact('city'));
+        return view('details', [
+            'cityID' => $cityID
+        ]);
     }
 }

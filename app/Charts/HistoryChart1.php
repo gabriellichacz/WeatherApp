@@ -18,32 +18,18 @@ class HistoryChart1 extends BaseChart
      * and never a string or an array.
      */
     
-    public function data_for_chart_hum()
-    {
-        // All needed cities's IDs
-        $cities = DB::table('cities') -> pluck('CityID');
-
-        for($n = 0; $n <= count($cities)-1; $n++){
-            // All data
-            $dataa = Weather::select('id', 'Humidity') -> where('CityID', $cities[$n]) -> get() -> toArray();
-
-            // Structuring data set for chartJS
-            $structuredData[$n] = array_map(function($item){
-                return ['x' => $item['id'], 'y' => $item['Humidity']];
-            }, $dataa);
-        }
-
-        return($structuredData);
-    }
-
     public function handler(Request $request): Chartisan
     {
-        $citiesNames = DB::table('cities') -> pluck('name');
-        $data_hum = $this -> data_for_chart_hum();
-        
+        $id = request() -> id;
+        $cityIDchart = DB::table('cities') -> where('cityID', $id) -> pluck('CityID');
+        $cityIDname = DB::table('cities') -> where('cityID', $id) -> pluck('name');
+        $dataa = Weather::select('id', 'Humidity') -> where('CityID', $cityIDchart) -> get() -> toArray();
+
+        $structuredData = array_map(function($item){
+            return ['x' => $item['id'], 'y' => $item['Humidity']];
+        }, $dataa);
+
         return Chartisan::build()
-            ->dataset($citiesNames[0], $data_hum[0])
-            ->dataset($citiesNames[1], $data_hum[1])
-            ->dataset($citiesNames[2], $data_hum[2]);
+            ->dataset($cityIDname[0], $structuredData);
     }
 }

@@ -54,7 +54,7 @@
           </div>
           <div class="p-3 text-white-50 text-center">
             <p class="text-decoration-none display-6"> 
-              <a href="/details/{{ $data_array[$i][3] }}">
+              <a class="text-white-50" href="/details/{{ $data_array[$i][3] }}">
                 {{ $data_array[$i][0] }} </p>
               </a>
             <p class="mb-0"> Temperatura: {{ $data_array[$i][1] }}°C </p>

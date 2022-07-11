@@ -121,8 +121,9 @@ class HomeController extends Controller
             $result_array[$i] = explode('|', $selectValues[$i]);
         }
 
-        // Truncating table
+        // Truncating tables
         City::truncate();
+        Weather::truncate();
 
         // Inserting new chosen cities
         for ($i = 0; $i <= $max_values_selected-1; $i++) {

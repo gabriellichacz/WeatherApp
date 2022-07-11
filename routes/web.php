@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
+use App\Models\City;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,4 +20,4 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::post('/store', [App\Http\Controllers\HomeController::class, 'store']);
 
 //
-Route::get('/details/{city}', [App\Http\Controllers\DetailsController::class, 'details'])->name('details.show');
+Route::get('/details/{cityID}', [App\Http\Controllers\DetailsController::class, 'details']);

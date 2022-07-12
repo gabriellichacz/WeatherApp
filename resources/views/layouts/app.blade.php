@@ -36,9 +36,10 @@
         <!-- navigation -->
         <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
             <div class="container px-4 px-lg-5">
-                <a class="navbar-brand text-white-50" href="/"> Pogoda </a>
-                <button class="navbar-toggler navbar-toggler-right text-white-50" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-                    Menu
+                <a class="navbar-brand text-white-50" href="/"> {{ __('Pogoda') }} </a>
+                <button class="navbar-toggler navbar-toggler-right text-white-50" type="button" data-bs-toggle="collapse" 
+                    data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                    {{ __('Menu') }}
                     <i class="fas fa-bars text-white-50"></i>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarResponsive">
@@ -61,7 +62,8 @@
                             @endif-->
                         @else
                             <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle text-white-50" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                <a id="navbarDropdown" class="nav-link dropdown-toggle text-white-50" href="#" role="button" 
+                                    data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->name }}
                                 </a>
 
@@ -90,7 +92,7 @@
             <div class="container px-4 px-lg-5 d-flex h-100 align-items-center justify-content-center">
                 <div class="d-flex justify-content-center">
                     <div class="text-center">
-                        <h1 class="mx-auto my-0 text-uppercase"> Pogoda </h1>
+                        <h1 class="mx-auto my-0 text-uppercase"> {{ __('Pogoda') }} </h1>
                     </div>
                 </div>
             </div>

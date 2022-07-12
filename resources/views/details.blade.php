@@ -9,11 +9,11 @@
             <!-- Charts -->
             <div class="row py-2 text-center">
                 <div class="col m-4">
-                <p class="display-6"> Wykres temperatur </p>
+                <p class="display-6"> {{ __('Wykres temperatur') }} </p>
                 <p id="HistoryChartContainer"></p>
                 </div>
                 <div class="col m-4">
-                <p class="display-6"> Wykres wilgotności </p>
+                <p class="display-6"> {{ __('Wykres wilgotności') }} </p>
                 <p id="HistoryChartContainer1"></p>
                 </div>
             </div>

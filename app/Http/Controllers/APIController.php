@@ -40,13 +40,14 @@ class APIController extends HomeController
             
                 // Extracting data - static
                 $data_weather = [];
-                $data_weather[0] = $city_name;
+                $data_weather[0] = $data->name;
                 $data_weather[1] = $data->main->temp;
                 $data_weather[1] = round($data_weather[1], 0, PHP_ROUND_HALF_UP); // Rounding temperature
                 $data_weather[2] = $data->main->humidity;
-                $data_weather[3] = $city_id;
+                $data_weather[3] = $data->id;
 
-                DB::table('weather') -> insert([ // Inserting
+                // Inserting data to table
+                DB::table('weather') -> insert([ 
                     'CityID' => $data_weather[3],
                     'Temp' => $data_weather[1],
                     'Humidity' => $data_weather[2],

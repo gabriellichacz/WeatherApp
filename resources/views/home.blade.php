@@ -7,12 +7,10 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
-
-
-
+<!-- Body -->
 <div class="container-fluid text-white-50 bg-dark-custom">
   <div class="px-lg-3">
-
+    
     <!-- Header -->
     <div class="row py-2 text-center">
       <div class="col-lg-12 mx-auto">
@@ -22,7 +20,7 @@
               {{ session('status') }}
             </div>
           @endif
-          <h5 class="display-5"> Wybierz 3 miasta do obserowania </h5>
+          <h5 class="display-5"> {{ __('Wybierz 3 miejscowości do obserowania') }} </h5>
         </div>
       </div>
     </div>
@@ -54,11 +52,11 @@
           </div>
           <div class="p-3 text-white-50 text-center">
             <p class="text-decoration-none display-6"> {{ $data_array[$i][0] }} </p>
-            <p class="mb-0"> Temperatura: {{ $data_array[$i][1] }}°C </p>
-            <p class="mb-0"> Wilgotność: {{ $data_array[$i][2] }}% </p>
+            <p class="mb-0"> {{ __('Temperatura:') }} {{ $data_array[$i][1] }}°C </p>
+            <p class="mb-0"> {{ __('Wilgotność:') }} {{ $data_array[$i][2] }}% </p>
             <p class="m-2">
               <a href="/details/{{ $data_array[$i][3] }}" class="btn bg-white text-black" type="button">
-                Wyświetl historię
+                {{ __('Wyświetl historię') }}
               </a>
             </p>
           </div>
@@ -68,10 +66,9 @@
     </div>
     <!-- end of Cards -->
 
-
   </div>
 </div>
-
+<!-- end of Body -->
 
 <!-- Links for multiselect list -->
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js"> </script>

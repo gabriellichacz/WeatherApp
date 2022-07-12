@@ -6,7 +6,7 @@
 <div class="container-fluid text-white-50 bg-dark-custom">
     <div class="px-lg-3">
         <div class="text-center">
-            Strona powitalna
+            {{ __('Strona powitalna') }}
         </div>
     </div>
 </div>

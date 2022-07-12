@@ -18,6 +18,4 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::post('/store', [App\Http\Controllers\HomeController::class, 'store']);
-
-//
 Route::get('/details/{cityID}', [App\Http\Controllers\DetailsController::class, 'details']);

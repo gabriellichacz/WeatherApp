@@ -51,7 +51,7 @@ class APIController extends HomeController
                     'CityID' => $data_weather[3],
                     'Temp' => $data_weather[1],
                     'Humidity' => $data_weather[2],
-                    'created_at' => date('Y/m/d H:i:s'),
+                    'created_at' => date('Y/m/d H:i'),
                 ]);
             }
         }

@@ -20,21 +20,19 @@ class HomeController extends Controller
     public function selectSearch(Request $request)
     {
     	$cities = [];
-        if($request->has('q')){
+        if($request -> has('q')){
             $search = $request->q;
 
             $MainDataArrayCities =  $this -> JsonRead(); // calling function 'JsonRead'
-            // Splitting data (IDs and CitiesNames)
-            $CitiesIDs = [];
+            $CitiesIDs = []; // Splitting data (IDs and CitiesNames)
             $CitiesNames = [];
             for($i = 0; $i < count($MainDataArrayCities); $i++){
                 $CitiesIDs[$i] = $MainDataArrayCities[$i]['id'];
                 $CitiesNames[$i] = $MainDataArrayCities[$i]['name'];
             }
 
-            $cities = City::select("name")
-            		->where('name', 'LIKE', "%$search%")
-            		->get();
+            // Main thing (where like clause) (both work somehow)
+            $cities = preg_grep('~' . $search . '~', $CitiesNames);
         }
         return response()->json($cities);
     }

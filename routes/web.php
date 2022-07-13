@@ -20,3 +20,5 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::post('/store', [App\Http\Controllers\HomeController::class, 'store']);
 Route::get('/details/{cityID}', [App\Http\Controllers\DetailsController::class, 'details']);
 Route::get('/delete/{cityID}', [App\Http\Controllers\HomeController::class, 'delete']);
+
+Route::get('/ajax-autocomplete-search', [App\Http\Controllers\HomeController::class, 'selectSearch']);

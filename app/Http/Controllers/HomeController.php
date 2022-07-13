@@ -16,6 +16,29 @@ class HomeController extends Controller
         $this->middleware('auth');
     }
 
+    // Test
+    public function selectSearch(Request $request)
+    {
+    	$cities = [];
+        if($request->has('q')){
+            $search = $request->q;
+
+            $MainDataArrayCities =  $this -> JsonRead(); // calling function 'JsonRead'
+            // Splitting data (IDs and CitiesNames)
+            $CitiesIDs = [];
+            $CitiesNames = [];
+            for($i = 0; $i < count($MainDataArrayCities); $i++){
+                $CitiesIDs[$i] = $MainDataArrayCities[$i]['id'];
+                $CitiesNames[$i] = $MainDataArrayCities[$i]['name'];
+            }
+
+            $cities = City::select("name")
+            		->where('name', 'LIKE', "%$search%")
+            		->get();
+        }
+        return response()->json($cities);
+    }
+
     // Calling OpenWeather API
     public function api($CitiesIDs, $CitiesNames, $j) // j - index for chosing city
     {
@@ -43,11 +66,8 @@ class HomeController extends Controller
         return($data_weather);
     }
 
-    // Home view with weather dashboard
-    public function index()
+    public function JsonRead()
     {
-        $max_values_selected = 10;
-
         // Reading from json
         $datafile_json = file_get_contents("json_data/city.list.json");
         $data_json = json_decode($datafile_json, true);
@@ -69,6 +89,16 @@ class HomeController extends Controller
         $MainDataArrayCities = array_combine(
             range(0, count($filtered_data) + (0-1)), array_values($filtered_data)
         );
+
+        return ($MainDataArrayCities);
+    }
+
+    // Home view with weather dashboard
+    public function index()
+    {
+        $max_values_selected = 10;
+
+        $MainDataArrayCities =  $this -> JsonRead(); // calling function 'JsonRead'
 
         // Splitting data (IDs and CitiesNames)
         $CitiesIDs = [];

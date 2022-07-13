@@ -11,16 +11,16 @@
       <div class="col-lg-12 mx-auto">
         <div class="text-black p-3 shadow-sm rounded text-center text-white-50">
           @if (session('status'))
-            <div class="alert alert-success" role="alert">
+            <div class="alert alert-success md-2" role="alert">
               {{ session('status') }}
             </div>
           @endif
-          <h5 class="display-5"> {{ __('Wybierz 3 miejscowości do obserowania') }} </h5>
+          <h5 class="display-5"> {{ __('Dodaj miejscowość do obserwowanych') }} </h5>
         </div>
       </div>
     </div>
     <!-- End of header -->
-
+    
     <!-- List -->
     <div class="row py-2 text-center">
       <form action="/store" enctype="multipart/form-data" method="post">

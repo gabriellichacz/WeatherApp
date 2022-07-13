@@ -98,10 +98,6 @@ class HomeController extends Controller
                 $data_array[$i] = $this -> api($chosenCitiesIDs, $chosenCitiesNames, $i); // calling function 'api'
             }
 
-            /*foreach ($data_array as $key => $item) {
-                $data_array[$key] = $this -> api($chosenCitiesIDs, $chosenCitiesNames, $i); // calling function 'api'
-            }*/
-
             return view('home', [
                 'data_array' => $data_array,
                 'max_values_selected' => $max_values_selected,
@@ -119,10 +115,11 @@ class HomeController extends Controller
         $selectValues = request() -> CitySelector;
         $result_array = explode('|', $selectValues);
 
-        $chosenCitiesIDs = DB::table('cities') -> pluck('CityID');
+        // Retriving already chosen cities from table to check how much of them there are and if there are no duplicates
+        $chosenCitiesIDs = DB::table('cities') -> pluck('CityID') -> toArray();
 
-        // 10 is maximum number of followed cities
-        if(count($chosenCitiesIDs) < 10) 
+        // 10 is a maximum number of followed cities
+        if(count($chosenCitiesIDs) < 10 && !in_array($result_array[0], $chosenCitiesIDs))
         {
             // Inserting new chosen city
             $city = City::create([
@@ -136,7 +133,7 @@ class HomeController extends Controller
         }
         else 
         {
-            return redirect('/home')->with('status', "Nie można dodać kolejnego miasta");
+            return redirect('/home')->with('status', "Maksymalna liczba miast osiągnięta lub $result_array[1] jest już na liście obserowanych");
         }
     }
 

@@ -46,7 +46,7 @@ class HomeController extends Controller
     // Home view with weather dashboard
     public function index()
     {
-        $max_values_selected = 3;
+        $max_values_selected = 10;
 
         // Reading from json
         $datafile_json = file_get_contents("json_data/city.list.json");
@@ -94,15 +94,20 @@ class HomeController extends Controller
             
             // Putting data from api call to array
             $data_array = array();
-            for ($i = 0; $i <= $max_values_selected-1; $i++) {
+            for ($i = 0; $i <= count($chosenCitiesIDs)-1; $i++) {
                 $data_array[$i] = $this -> api($chosenCitiesIDs, $chosenCitiesNames, $i); // calling function 'api'
             }
+
+            /*foreach ($data_array as $key => $item) {
+                $data_array[$key] = $this -> api($chosenCitiesIDs, $chosenCitiesNames, $i); // calling function 'api'
+            }*/
 
             return view('home', [
                 'data_array' => $data_array,
                 'max_values_selected' => $max_values_selected,
                 'Cities' => $CitiesNames,
-                'CitiesIDs' => $CitiesIDs
+                'CitiesIDs' => $CitiesIDs,
+                'chosenCitiesIDs' => $chosenCitiesIDs
             ]);
         }
     }
@@ -123,5 +128,13 @@ class HomeController extends Controller
         $city -> save();
 
         return redirect('home');
+    }
+
+    // Deleting "followed" city from cities table
+    public function delete($CityID)
+    {
+        $deleted = DB::table('cities') -> where('CityID', '=', $CityID); // select statement
+        $deleted -> delete(); // delete selected item
+        return redirect('/home');
     }
 }

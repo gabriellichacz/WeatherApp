@@ -2,11 +2,6 @@
 
 @section('content')
 
-<!-- Links for multiselect list -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.css">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
 <!-- Body -->
 <div class="container-fluid text-white-50 bg-dark-custom">
   <div class="px-lg-3">
@@ -42,7 +37,7 @@
 
     <!-- Cards -->
     <div class="row py-2 text-center">
-      @for ($i = 0; $i <= $max_values_selected-1; $i++)
+      @for ($i = 0; $i <= count($chosenCitiesIDs)-1; $i++)
         <!-- City card -->
         <div class="col-xl-4 col-lg-3 col-md-6 mb-4">
           <div class="p-2">
@@ -59,6 +54,11 @@
                 {{ __('Wyświetl historię') }}
               </a>
             </p>
+            <p class="m-2">
+              <a href="/delete/{{ $data_array[$i][3] }}" class="btn bg-white text-black" type="button">
+                {{ __('Usuń z obserowanych') }}
+              </a>
+            </p>
           </div>
         </div>
         <!-- End of City card -->
@@ -69,9 +69,5 @@
   </div>
 </div>
 <!-- end of Body -->
-
-<!-- Links for multiselect list -->
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js"> </script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"> </script>
 
 @endsection

@@ -30,7 +30,7 @@
     url: "@chart('history_chart')" + "?id={{ $cityID }}",
     hooks: new ChartisanHooks()
     .colors()
-    .datasets([{type:'line', fill:false}]),
+    .datasets([{type:'line', fill:false, borderColor:'rgb(255,255,51)'}]),
 });
 
 const chart1 = new Chartisan({
@@ -38,7 +38,7 @@ const chart1 = new Chartisan({
     url: "@chart('history_chart1')" + "?id={{ $cityID }}",
     hooks: new ChartisanHooks()
     .colors()
-    .datasets([{type:'line', fill:false}]),
+    .datasets([{type:'line', fill:false, borderColor:'rgb(75, 192, 192)'}]),
 })
 </script>
 <!-- end of Scripts for charts -->

@@ -20,7 +20,9 @@
       </div>
     </div>
     <!-- End of header -->
-    
+
+  
+
     <!-- List -->
     <div class="row py-2 text-center">
       <form action="/store" enctype="multipart/form-data" method="post">
@@ -31,9 +33,16 @@
             @endfor
           </select>
           <button type="submit" class="btn bg-white text-black m-2"> Zapisz </button>
-        </form>
+      </form>
     </div>
-    <!-- List -->
+    <!-- end of List -->
+
+    <!-- testing -->
+    <div>
+
+    </div>
+    <!-- end of testing -->
+
 
     <!-- Cards -->
     <div class="row py-2 text-center">

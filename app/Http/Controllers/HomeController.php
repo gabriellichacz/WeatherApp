@@ -107,33 +107,20 @@ class HomeController extends Controller
         }
     }
 
-    // Storing "followed" cities in database (data from form CitySelector)
+    // Storing new "followed" city in database (data from form CitySelector)
     public function store(Request $request)
     {
-        // How many "followed" cities we want
-        $max_values_selected = 3;
-
         // Putting values from CitySelector[] form to selectValues array and separating IDs and Names
-        $selectValues = [];
-        $result_array = [];
-        for ($i = 0; $i <= $max_values_selected-1; $i++) {
-            $selectValues[$i] = request() -> CitySelector[$i];
-            $result_array[$i] = explode('|', $selectValues[$i]);
-        }
+        $selectValues = request() -> CitySelector;
+        $result_array = explode('|', $selectValues);
 
-        // Truncating tables
-        City::truncate();
-        Weather::truncate();
-
-        // Inserting new chosen cities
-        for ($i = 0; $i <= $max_values_selected-1; $i++) {
-            $city = City::create([
-                'CityID' => $result_array[$i][0],
-                'Name' => $result_array[$i][1],
-                'Chosen' => '0',
-            ]);
-            $city -> save();
-        }
+        // Inserting new chosen city
+        $city = City::create([
+            'CityID' => $result_array[0],
+            'Name' => $result_array[1],
+            'Chosen' => '0',
+        ]);
+        $city -> save();
 
         return redirect('home');
     }

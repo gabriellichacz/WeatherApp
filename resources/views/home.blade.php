@@ -30,9 +30,9 @@
     <div class="row py-2 text-center">
       <form action="/store" enctype="multipart/form-data" method="post">
         @csrf
-          <select name="CitySelector[]" class="form-control selectpicker" multiple data-max-options="3">
+          <select name="CitySelector" class="form-control selectpicker">
             @for ($i = 0; $i < count($Cities); $i++) <!-- Data from DB -->
-            <option value="{{ $CitiesIDs[$i] }}|{{ $Cities[$i] }}"> {{ $Cities[$i] }} </option>
+              <option value="{{ $CitiesIDs[$i] }}|{{ $Cities[$i] }}"> {{ $Cities[$i] }} </option>
             @endfor
           </select>
           <button type="submit" class="btn bg-white text-black m-2"> Zapisz </button>

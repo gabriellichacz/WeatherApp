@@ -119,22 +119,37 @@ class HomeController extends Controller
         $selectValues = request() -> CitySelector;
         $result_array = explode('|', $selectValues);
 
-        // Inserting new chosen city
-        $city = City::create([
-            'CityID' => $result_array[0],
-            'Name' => $result_array[1],
-            'Chosen' => '0',
-        ]);
-        $city -> save();
+        $chosenCitiesIDs = DB::table('cities') -> pluck('CityID');
 
-        return redirect('home');
+        // 10 is maximum number of followed cities
+        if(count($chosenCitiesIDs) < 10) 
+        {
+            // Inserting new chosen city
+            $city = City::create([
+                'CityID' => $result_array[0],
+                'Name' => $result_array[1],
+                'Chosen' => '0',
+            ]);
+            $city -> save();
+
+            return redirect('/home')->with('status', "Dodano $result_array[1] do obserowanych");
+        }
+        else 
+        {
+            return redirect('/home')->with('status', "Nie można dodać kolejnego miasta");
+        }
     }
 
     // Deleting "followed" city from cities table
     public function delete($CityID)
     {
+        // Name for displaying status
+        $name = DB::table('cities') -> where('CityID', '=', $CityID) -> pluck('name');
+
+        // Deleting
         $deleted = DB::table('cities') -> where('CityID', '=', $CityID); // select statement
         $deleted -> delete(); // delete selected item
-        return redirect('/home');
+
+        return redirect('/home')->with('status', "Usunięto $name[0] z obserowanych");
     }
 }

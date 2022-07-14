@@ -32,9 +32,9 @@ class HomeController extends Controller
             }
 
             // Main thing (where like clause) (both work somehow)
-            $cities = preg_grep('~' . $search . '~', $CitiesNames);
+            $cities = preg_grep('~' . $search . '~i', $CitiesNames);
         }
-        return response()->json($cities);
+        return response()-> json($cities);
     }
 
     // Calling OpenWeather API

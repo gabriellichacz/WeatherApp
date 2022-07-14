@@ -3,6 +3,12 @@
 
 @section('content')
 
+<!-- Links for livesearch -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet"/>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
+<!-- end of Links for livesearch -->
+
 <!-- Body -->
 <div class="container-fluid text-white-50 bg-dark-custom">
   <div class="px-lg-3">
@@ -22,28 +28,16 @@
     </div>
     <!-- End of header -->
 
-  
-
     <!-- List -->
     <div class="row py-2 text-center">
       <form action="/store" enctype="multipart/form-data" method="post">
         @csrf
-          <select name="CitySelector" class="form-control selectpicker">
-            @for ($i = 0; $i < count($Cities); $i++) <!-- Data from DB -->
-              <option value="{{ $CitiesIDs[$i] }}|{{ $Cities[$i] }}"> {{ $Cities[$i] }} </option>
-            @endfor
-          </select>
-          <button type="submit" class="btn bg-white text-black m-2"> Zapisz </button>
+        <select class="livesearch form-control" name="livesearch">
+        </select>
+        <button type="submit" class="btn bg-white text-black m-2"> Zapisz </button>
       </form>
     </div>
     <!-- end of List -->
-
-    <!-- testing -->
-    <div>
-
-    </div>
-    <!-- end of testing -->
-
 
     <!-- Cards -->
     <div class="row py-2 text-center">
@@ -81,20 +75,7 @@
 <!-- end of Body -->
 
 
-<!-- List livesearch -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet"/>
-<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
-
-<div class="container mt-5">
-  <form action="/store" enctype="multipart/form-data" method="post">
-    @csrf
-    <select class="livesearch form-control" name="livesearch">
-    </select>
-    <button type="submit" class="btn bg-white text-black m-2"> Zapisz </button>
-  </form>
-</div>
-
+<!-- Script for livesearch -->
 <script type="text/javascript">
   $('.livesearch').select2({
     placeholder: 'Wybierz miasto',
@@ -116,7 +97,7 @@
     }
     });
   </script>
-<!-- end of List livesearch -->
+<!-- end of Script for livesearch -->
 
 
 @endsection

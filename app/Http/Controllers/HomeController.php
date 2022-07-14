@@ -152,28 +152,40 @@ class HomeController extends Controller
     public function store(Request $request)
     {
         // Putting values from CitySelector[] form to selectValues array and separating IDs and Names
-        $selectValues = request() -> CitySelector;
-        $result_array = explode('|', $selectValues);
+        $selectValues = request() -> livesearch;
+        
+        // Reading json
+        $MainDataArrayCities =  $this -> JsonRead(); // it contains IDs and Names
+
+        // Extracting name and id column
+        $Cityids = array_column(array_merge($MainDataArrayCities), 'id');
+        $Citynames = array_column(array_merge($MainDataArrayCities), 'name');
+
+        // Searching for index of selected value in IDs column 
+        $index = array_search($selectValues, $Cityids);
+
+        // Chosing name from name column with previously found index
+        $chosenname = $Citynames[$index];
 
         // Retriving already chosen cities from table to check how much of them there are and if there are no duplicates
         $chosenCitiesIDs = DB::table('cities') -> pluck('CityID') -> toArray();
 
         // 10 is a maximum number of followed cities
-        if(count($chosenCitiesIDs) < 10 && !in_array($result_array[0], $chosenCitiesIDs))
+        if(count($chosenCitiesIDs) < 10 && !in_array($selectValues, $chosenCitiesIDs))
         {
             // Inserting new chosen city
             $city = City::create([
-                'CityID' => $result_array[0],
-                'Name' => $result_array[1],
+                'CityID' => $selectValues,
+                'Name' => $chosenname,
                 'Chosen' => '0',
             ]);
             $city -> save();
 
-            return redirect('/home')->with('status', "Dodano $result_array[1] do obserowanych");
+            return redirect('/home')->with('status', "Dodano $chosenname do obserowanych");
         }
         else 
         {
-            return redirect('/home')->with('status', "Maksymalna liczba miast osiągnięta lub $result_array[1] jest już na liście obserowanych");
+            return redirect('/home')->with('status', "Maksymalna liczba miast osiągnięta lub $chosenname jest już na liście obserowanych");
         }
     }
 

@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Http;
+//use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\DB;
-use App\Models\Weather;
+//use App\Models\Weather;
 use App\Models\City;
 
 class HomeController extends Controller
@@ -44,7 +44,6 @@ class HomeController extends Controller
             $result = array_filter($MainDataArrayCities, function($v) use ($options) {
                 return in_array($v['name'], $options);
             });
-
         }
         return response()-> json($result);
     }
@@ -54,7 +53,7 @@ class HomeController extends Controller
     {
         $API_Key = 'f7df02ae6a92e103bdc3996cbf4099a5';
         $city_id = $CitiesIDs[$j];
-        $city_name = $CitiesNames[$j];
+        //$city_name = $CitiesNames[$j];
         $units = 'metric';
 
         // Calling API

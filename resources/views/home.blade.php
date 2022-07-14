@@ -81,13 +81,18 @@
 <!-- end of Body -->
 
 
-<!-- List test -->
+<!-- List livesearch -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet"/>
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
 
 <div class="container mt-5">
-  <select class="livesearch form-control" name="livesearch"></select>
+  <form action="/store" enctype="multipart/form-data" method="post">
+    @csrf
+    <select class="livesearch form-control" name="livesearch">
+    </select>
+    <button type="submit" class="btn bg-white text-black m-2"> Zapisz </button>
+  </form>
 </div>
 
 <script type="text/javascript">
@@ -101,7 +106,8 @@
         return {
           results: $.map(data, function (item) {
             return {
-              text: item
+              id: item.id,
+              text: item.name
             }
           })
         };
@@ -110,7 +116,7 @@
     }
     });
   </script>
-<!-- end of List test -->
+<!-- end of List livesearch -->
 
 
 @endsection

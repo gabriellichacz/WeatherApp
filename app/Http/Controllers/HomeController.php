@@ -16,25 +16,37 @@ class HomeController extends Controller
         $this->middleware('auth');
     }
 
-    // Test
+    // Livesearch list from json file
     public function selectSearch(Request $request)
     {
     	$cities = [];
         if($request -> has('q')){
             $search = $request->q;
 
-            $MainDataArrayCities =  $this -> JsonRead(); // calling function 'JsonRead'
-            $CitiesIDs = []; // Splitting data (IDs and CitiesNames)
-            $CitiesNames = [];
-            for($i = 0; $i < count($MainDataArrayCities); $i++){
-                $CitiesIDs[$i] = $MainDataArrayCities[$i]['id'];
-                $CitiesNames[$i] = $MainDataArrayCities[$i]['name'];
-            }
+            // calling function 'JsonRead'
+            $MainDataArrayCities =  $this -> JsonRead(); // it contains IDs and Names
 
-            // Main thing (where like clause) (both work somehow)
-            $cities = preg_grep('~' . $search . '~i', $CitiesNames);
+            // Getting 'name' column from data
+            $CityNames = array_column(array_merge($MainDataArrayCities), 'name');
+
+            // Filtering array (SELECT city_name FROM cities WHERE city_name LIKE search)
+            $cities = preg_grep('~' . $search . '~i', $CityNames);
+
+            // Converting array to format I need for this method to work
+            $citiesConverted = array_chunk($cities, 1);
+
+            // Converted to 1-d array
+            foreach ($citiesConverted as $arr) {
+                $options[] = current($arr);  
+            }
+            
+            // Filter $MainDataArrayCities and obtain those results for which ['name'] value matches with one of the values contained in $options
+            $result = array_filter($MainDataArrayCities, function($v) use ($options) {
+                return in_array($v['name'], $options);
+            });
+
         }
-        return response()-> json($cities);
+        return response()-> json($result);
     }
 
     // Calling OpenWeather API

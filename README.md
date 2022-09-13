@@ -3,8 +3,6 @@
 # About
 Weather app using OpenWeatherApi with Polish cities, created in PHP/Laravel 9 and Chart.js
 
-</br>
-
 # Usage
 **!! User has to use their own API key from OpenWeather in *APIController.php* and *HomeController.php* !!**
 

@@ -25,7 +25,7 @@ class APIController extends HomeController
             // Inserting current data to database for all cities
             for ($LoopCityIndex = 0; $LoopCityIndex <= count($CitiesIDsALL)-1; $LoopCityIndex++) {
                 
-                $API_Key = 'f7df02ae6a92e103bdc3996cbf4099a5';
+                $API_Key = ''; // YOUR API KEY
                 $city_id = $CitiesIDsALL[$LoopCityIndex];
                 $city_name = $CitiesNamesALL[$LoopCityIndex];
                 $units = 'metric';

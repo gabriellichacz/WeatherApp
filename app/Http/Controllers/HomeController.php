@@ -51,7 +51,7 @@ class HomeController extends Controller
     // Calling OpenWeather API
     public function api($CitiesIDs, $CitiesNames, $j) // j - index for chosing city
     {
-        $API_Key = 'f7df02ae6a92e103bdc3996cbf4099a5';
+        $API_Key = ''; // YOUR API KEY
         $city_id = $CitiesIDs[$j];
         //$city_name = $CitiesNames[$j];
         $units = 'metric';
